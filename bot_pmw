@@ -1,0 +1,65 @@
+import tweepy
+import requests
+from time import sleep
+from credentials import *
+from config import QUERY, FOLLOW, LIKE, SLEEP_TIME
+
+consumer_key = 'FE2aPrXvtMKlrfenaQKu8JrwK'
+consumer_secret = 'lVVUkTChJYVvluMOIm9jpLhdMW6aQTcRzRRC7Ci90EllmJu3a8'
+access_token = '1722314829380124672-jQcUkMaSLhS1s28U3gE9YQACbHzrZl'
+access_token_secret = 'IVokTrYAwE4U5JqaEZ0oPiZ09PmRzmpuF3ZRIt5QpLM8P'
+bearer_token = 'your_bearer_token'
+
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+
+api = tweepy.API(auth)
+
+base_url = "https://api.twitter.com/2/tweets/search/recent"
+headers = {
+    "Authorization": f"Bearer {bearer_token}",
+}
+
+query_params = {
+    "query": QUERY,
+    "max_results": 10,
+}
+
+print("Twitter bot which retweets, like tweets, follows users, and sends direct messages")
+print("Bot Settings")
+print("Like Tweets:", LIKE)
+print("Follow users:", FOLLOW)
+
+response = requests.get(base_url, headers=headers, params=query_params)
+tweets = response.json().get("data", [])
+
+for tweet in tweets:
+    try:
+        print('\nTweet by: @' + tweet['author_id'])
+        api.retweet(id=tweet['id'])
+        print('Retweeted the tweet')
+
+        if LIKE:
+            api.create_favorite(id=tweet['id'])
+            print('Favorited the tweet')
+
+        if FOLLOW:
+            user = api.get_user(id=tweet['author_id'])
+            if not user.following:
+                api.create_friendship(id=tweet['author_id'])
+                print('Followed the user')
+
+        if SEND_DIRECT_MESSAGE:
+            # Modifique esta parte para enviar uma mensagem direta
+            recipient_id = tweet['author_id']
+            message_text = "Sua mensagem direta aqui."
+            api.send_direct_message(recipient_id, text=message_text)
+            print('Sent a direct message')
+
+        sleep(SLEEP_TIME)
+
+    except tweepy.TweepError as e:
+        print(e.reason)
+
+    except StopIteration:
+        break
