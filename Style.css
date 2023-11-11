@@ -126,7 +126,7 @@ body {
 }
 
 .container {
-    margin-top: 5rem;
+    margin-top: 0;
 	padding: 2rem;
     width: 100%;
     height: 100%;
@@ -134,7 +134,8 @@ body {
 
 .slider-wrapper {
 	position: relative;
-	max-width: 48rem;
+	max-width: 100vh;
+    max-height: 50vh;
 	margin: 0 auto;
 }
 
@@ -185,9 +186,7 @@ body {
 }
 
 main.cards {
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
     display: flex;
     padding: 10px;
 }
@@ -195,13 +194,13 @@ main.cards {
 main.cards section.card {
     display: flex;
     flex-direction: column;
+    background: white;
     align-items: center;
     text-align: center;
-    background: white;
     padding: 1rem 1.5rem;
     border-radius: 8px;
     max-height: 468px;
-    margin-left: 5%;
+    margin:  5% auto;
 }
 
 /*main.cards section.card:first-child {
@@ -288,9 +287,9 @@ main.cards section.card.about button {
    
    main.cards section.card.about button:hover {
     letter-spacing: 3px;
-    background-color: hsl(261deg 80% 48%);
+    background-color: hsl(305, 80%, 48%);
     color: hsl(0, 0%, 100%);
-    box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
+    box-shadow: rgb(220, 24, 220) 0px 7px 29px 0px;
    }
    
    main.cards section.card.about button:active {
@@ -316,9 +315,9 @@ main.cards section.card.about button {
 
    main.cards section.card.shop button:hover{
     letter-spacing: 3px;
-    background-color: hsl(261deg 80% 48%);
+    background-color: hsl(239, 80%, 48%);
     color: hsl(0, 0%, 100%);
-    box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
+    box-shadow: rgb(24, 102, 220) 0px 7px 29px 0px;
    }
 
    main.cards section.card.shop button:active {
@@ -510,4 +509,13 @@ footer {
         grid-template-columns: repeat(1, 1fr);
         padding: 3rem 2rem;
     }
+}
+
+.imagem-fundo{
+    width: 200vh;
+    height: 50vh;
+    background-repeat: no-repeat;
+    background-image: url(Imagens/Fundo1.jpg);
+    background-size: cover;
+    object-fit: cover;
 }
